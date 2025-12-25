@@ -1,19 +1,14 @@
 /*
-
 =========================================================
-* Volt Free - Bootstrap 5 Dashboard
+* viglu - Dashboard
 =========================================================
-
-* Product Page: https://themesberg.com/product/admin-dashboard/volt-premium-bootstrap-5-dashboard
-* Copyright 2020 Themesberg (https://www.themesberg.com)
-* License (https://themesberg.com/licensing)
-
-* Designed and coded by https://themesberg.com
-
+* Custom modifications by Luc Vigato (2025) - https://github.com/viglu/viglu-dashboard
+* Based on Volt Free Bootstrap 5 Dashboard
+* Original Product Page: https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard
+* Original Copyright 2021 Themesberg (https://www.themesberg.com)
+* License: MIT (https://themesberg.com/licensing)
 =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Please contact us to request a removal.
-
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Please contact us to request a removal. Contact us if you want to remove it.
 */
 
 var autoprefixer = require('gulp-autoprefixer');
