@@ -84,13 +84,13 @@ This product is built using the following widely used technologies:
 npm install gulp-cli -g
 ```
 
-5. After installing Gulp, run npm install in the main `volt/` folder to download all the project dependencies. You'll find them in the `node_modules/` folder.
+5. After installing Gulp, run npm install in the main `viglu/` folder to download all the project dependencies. You'll find them in the `node_modules/` folder.
 
 ```
 npm install
 ```
 
-6. Run gulp in the `volt/` folder to serve the project files using BrowserSync. Running gulp will compile the theme and open `/index.html` in your main browser.
+6. Run gulp in the `viglu/` folder to serve the project files using BrowserSync. Running gulp will compile the theme and open `/index.html` in your main browser.
 
 ```
 gulp
@@ -127,7 +127,7 @@ The documentation for Volt is hosted on our [website](https://themesberg.com/doc
 Within the download you'll find the following directories and files:
 
 ```
-Volt Bootstrap 5 Admin Dashboard
+viglu Dashboard
 .
 ├── README.md
 ├── gulpfile.js
@@ -179,9 +179,9 @@ There is also a pro version of Volt which has more than 800 components, 20 examp
 
 ## Reporting Issues
 
-We use GitHub Issues as the official bug tracker for Volt Bootstrap 5 Admin Dashboard. Here are some advices for our users that want to report an issue:
+We use GitHub Issues as the official bug tracker for viglu Dashboard. Here are some advices for our users that want to report an issue:
 
-1. Make sure that you are using the latest version of Volt Bootstrap 5 Admin Dashboard. Check the CHANGELOG from your dashboard on our [website](https://themesberg.com/docs/volt-bootstrap-5-dashboard/getting-started/changelog/).
+1. Make sure that you are using the latest version of viglu Dashboard. Check the CHANGELOG from your dashboard on our [website](https://themesberg.com/docs/volt-bootstrap-5-dashboard/getting-started/changelog/).
 2. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
 3. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
 
