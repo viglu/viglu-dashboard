@@ -19,12 +19,34 @@
 @import "../../node_modules/bootstrap/scss/functions";
 @import "viglu/variables";
 
+// BOOTSTRAP 5.3 COMPATIBILITY FIX
+// Create RGB versions of theme colors required by Bootstrap 5.3
+@function hex-to-rgb($color) {
+  @return red($color), green($color), blue($color);
+}
+
+$theme-colors-rgb: () !default;
+@each $color, $value in $theme-colors {
+  $theme-colors-rgb: map-merge($theme-colors-rgb, (
+          $color: hex-to-rgb($value)
+  ));
+}
+
+$colors-rgb: () !default;
+@each $color, $value in $colors {
+  $colors-rgb: map-merge($colors-rgb, (
+          $color: hex-to-rgb($value)
+  ));
+}
+// END COMPATIBILITY FIX
+
 // Third party
 @import '../../node_modules/vanillajs-datepicker/sass/datepicker.scss';
-@import "../../node_modules/chartist/dist/scss/chartist.scss";
+@import "../../node_modules/chartist/dist/index.scss";
 
 // Bootstrap
 @import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/maps";
 @import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap/scss/utilities";
 
@@ -61,6 +83,8 @@
 @import "../../node_modules/bootstrap/scss/popover";
 @import "../../node_modules/bootstrap/scss/carousel";
 @import "../../node_modules/bootstrap/scss/spinners";
+@import "../../node_modules/bootstrap/scss/offcanvas";
+@import "../../node_modules/bootstrap/scss/placeholders";
 
 // Helpers
 @import "../../node_modules/bootstrap/scss/helpers";
