@@ -15,10 +15,10 @@ $gray-400: #9CA3AF !default;
 $gray-500: #6B7280 !default;
 $gray-600: #4B5563 !default;
 $gray-700: #374151 !default;
-$gray-800: #1F2937 !default;
-$gray-900: #111827 !default;
-$dark    : $gray-800 !default;
-$black   : $gray-900 !default;
+$gray-800: #1a1a1a !default;
+$gray-900: #000000 !default;
+$dark    : #000000 !default;
+$black   : #000000 !default;
 
 // fusv-disable
 $grays: ("100": $gray-100,
@@ -66,9 +66,9 @@ $colors: ("blue": $blue,
 // scss-docs-end colors-map
 
 // Color scheme
-$primary  : #1F2937 !default;
-$secondary: #f0bc74 !default;
-$tertiary : #31316A !default;
+$primary  : #1a1a1a !default;
+$secondary: #6c757d !default;
+$tertiary : #e9ecef !default;
 
 // Series names and colors. This can be extended or customized as desired. Just add more series and colors.
 $ct-series-names: (a, b, c, d, e, f, g) !default !default;
