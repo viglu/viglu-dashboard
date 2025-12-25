@@ -15,47 +15,7 @@
 const d = document;
 d.addEventListener("DOMContentLoaded", function(event) {
 
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-primary me-3',
-            cancelButton: 'btn btn-gray'
-        },
-        buttonsStyling: false
-    });
-
-    var themeSettingsEl = document.getElementById('theme-settings');
-    var themeSettingsExpandEl = document.getElementById('theme-settings-expand');
-
-    if(themeSettingsEl) {
-
-        var themeSettingsCollapse = new bootstrap.Collapse(themeSettingsEl, {
-            show: true,
-            toggle: false
-        });
-
-        if (window.localStorage.getItem('settings_expanded') === 'true') {
-            themeSettingsCollapse.show();
-            themeSettingsExpandEl.classList.remove('show');
-        } else {
-            themeSettingsCollapse.hide();
-            themeSettingsExpandEl.classList.add('show');
-        }
-        
-        themeSettingsEl.addEventListener('hidden.bs.collapse', function () {
-            themeSettingsExpandEl.classList.add('show');
-            window.localStorage.setItem('settings_expanded', false);
-        });
-
-        themeSettingsExpandEl.addEventListener('click', function () {
-            themeSettingsExpandEl.classList.remove('show');
-            window.localStorage.setItem('settings_expanded', true);
-            setTimeout(function() {
-                themeSettingsCollapse.show();
-            }, 300);
-        });
-    }
-
-    // options
+// options
     const breakpoints = {
         sm: 540,
         md: 720,
@@ -63,7 +23,7 @@ d.addEventListener("DOMContentLoaded", function(event) {
         xl: 1140
     };
 
-    var sidebar = document.getElementById('sidebarMenu')
+    var sidebar = document.getElementById('sidebarMenu');
     if(sidebar && d.body.clientWidth < breakpoints.lg) {
         sidebar.addEventListener('shown.bs.collapse', function () {
             document.querySelector('body').style.position = 'fixed';
@@ -98,26 +58,24 @@ d.addEventListener("DOMContentLoaded", function(event) {
         el.style.color = 'url(' + el.getAttribute('data-color') + ')';
     });
 
-    //Tooltips
+//Tooltips
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
+        return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 
-
-    // Popovers
+// Popovers
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-      return new bootstrap.Popover(popoverTriggerEl)
+        return new bootstrap.Popover(popoverTriggerEl)
     })
-    
 
-    // Datepicker
+// Datepicker
     var datepickers = [].slice.call(d.querySelectorAll('[data-datepicker]'))
     var datepickersList = datepickers.map(function (el) {
         return new Datepicker(el, {
             buttonClass: 'btn'
-          });
+        });
     })
 
     if(d.querySelector('.input-slider-container')) {
@@ -137,7 +95,6 @@ d.addEventListener("DOMContentLoaded", function(event) {
             noUiSlider.create(c, {
                 start: [parseInt(startValue)],
                 connect: [true, false],
-                //step: 1000,
                 range: {
                     'min': [parseInt(minValue)],
                     'max': [parseInt(maxValue)]
@@ -165,100 +122,216 @@ d.addEventListener("DOMContentLoaded", function(event) {
         });
     }
 
-    //Chartist
+// ApexCharts
 
-    if(d.querySelector('.ct-chart-sales-value')) {
-        //Chart 5
-          new Chartist.Line('.ct-chart-sales-value', {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            series: [
-                [0, 10, 30, 40, 80, 60, 100]
-            ]
-          }, {
-            low: 0,
-            showArea: true,
-            fullWidth: true,
-            plugins: [
-              Chartist.plugins.tooltip()
-            ],
-            axisX: {
-                // On the x-axis start means top and end means bottom
-                position: 'end',
-                showGrid: true
+// Sales Value Chart
+    if(d.querySelector('#salesValueChart')) {
+        var salesValueOptions = {
+            series: [{
+                name: 'Sales',
+                data: [0, 10, 30, 40, 80, 60, 100]
+            }],
+            chart: {
+                type: 'area',
+                height: 250,
+                toolbar: {
+                    show: false
+                },
+                sparkline: {
+                    enabled: false
+                }
             },
-            axisY: {
-                // On the y-axis start means left and end means right
-                showGrid: false,
-                showLabel: false,
-                labelInterpolationFnc: function(value) {
-                    return '$' + (value / 1) + 'k';
+            colors: ['#31316A'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'light',
+                    type: 'vertical',
+                    shadeIntensity: 0.3,
+                    opacityFrom: 0.7,
+                    opacityTo: 0.3,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 3
+            },
+            xaxis: {
+                categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                labels: {
+                    style: {
+                        colors: '#262B40',
+                        fontSize: '12px'
+                    }
+                },
+                axisBorder: {
+                    show: true
+                }
+            },
+            yaxis: {
+                show: false
+            },
+            grid: {
+                show: true,
+                borderColor: '#F8BD7A',
+                strokeDashArray: 2,
+                xaxis: {
+                    lines: {
+                        show: true
+                    }
+                }
+            },
+            tooltip: {
+                enabled: true,
+                y: {
+                    formatter: function(value) {
+                        return '$' + value + 'k';
+                    }
                 }
             }
-        });
+        };
+
+        var salesValueChart = new ApexCharts(document.querySelector("#salesValueChart"), salesValueOptions);
+        salesValueChart.render();
     }
 
-    if(d.querySelector('.ct-chart-ranking')) {
-        var chart = new Chartist.Bar('.ct-chart-ranking', {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-            series: [
-              [1, 5, 2, 5, 4, 3],
-              [2, 3, 4, 8, 1, 2],
-            ]
-          }, {
-            low: 0,
-            showArea: true,
-            plugins: [
-              Chartist.plugins.tooltip()
-            ],
-            axisX: {
-                // On the x-axis start means top and end means bottom
-                position: 'end'
-            },
-            axisY: {
-                // On the y-axis start means left and end means right
-                showGrid: false,
-                showLabel: false,
-                offset: 0
-            }
-            });
-          
-          chart.on('draw', function(data) {
-            if(data.type === 'line' || data.type === 'area') {
-              data.element.animate({
-                d: {
-                  begin: 2000 * data.index,
-                  dur: 2000,
-                  from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-                  to: data.path.clone().stringify(),
-                  easing: Chartist.Svg.Easing.easeOutQuint
+// Ranking Chart
+    if(d.querySelector('#rankingChart')) {
+        var rankingOptions = {
+            series: [{
+                name: 'Rank 1',
+                data: [1, 5, 2, 5, 4, 3]
+            }, {
+                name: 'Rank 2',
+                data: [2, 3, 4, 8, 1, 2]
+            }],
+            chart: {
+                type: 'bar',
+                height: 300,
+                toolbar: {
+                    show: false
+                },
+                animations: {
+                    enabled: true,
+                    easing: 'easeinout',
+                    speed: 800,
+                    animateGradually: {
+                        enabled: true,
+                        delay: 150
+                    }
                 }
-              });
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    borderRadius: 2
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                labels: {
+                    style: {
+                        colors: '#262B40',
+                        fontSize: '12px',
+                        fontWeight: 600
+                    }
+                }
+            },
+            yaxis: {
+                show: false
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val
+                    }
+                }
+            },
+            colors: ['#31316A', '#6366F1'],
+            grid: {
+                show: false
             }
-        });
+        };
+
+        var rankingChart = new ApexCharts(document.querySelector("#rankingChart"), rankingOptions);
+        rankingChart.render();
     }
 
-    if(d.querySelector('.ct-chart-traffic-share')) {
-        var data = {
-            series: [70, 20, 10]
-          };
-          
-          var sum = function(a, b) { return a + b };
-          
-          new Chartist.Pie('.ct-chart-traffic-share', data, {
-            labelInterpolationFnc: function(value) {
-              return Math.round(value / data.series.reduce(sum) * 100) + '%';
-            },            
-            low: 0,
-            high: 8,
-            donut: true,
-            donutWidth: 20,
-            donutSolid: true,
-            fullWidth: false,
-            showLabel: false,
-            plugins: [
-              Chartist.plugins.tooltip()
-            ],
-        });         
+// Traffic Share Chart (Donut)
+    if(d.querySelector('#trafficShareChart')) {
+        var trafficShareOptions = {
+            series: [70, 20, 10],
+            chart: {
+                type: 'donut',
+                height: 300,
+            },
+            labels: ['Desktop', 'Mobile', 'Tablet'],
+            colors: ['#31316A', '#6366F1', '#F8BD7A'],
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '70%',
+                        labels: {
+                            show: true,
+                            total: {
+                                show: true,
+                                label: 'Total',
+                                formatter: function (w) {
+                                    return w.globals.seriesTotals.reduce((a, b) => a + b, 0) + '%'
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: function(val) {
+                    return Math.round(val) + "%"
+                },
+                style: {
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    colors: ['#fff']
+                },
+                dropShadow: {
+                    enabled: false
+                }
+            },
+            stroke: {
+                width: 3,
+                colors: ['#fff']
+            },
+            legend: {
+                show: true,
+                position: 'bottom'
+            },
+            tooltip: {
+                y: {
+                    formatter: function(val) {
+                        return val + "%"
+                    }
+                }
+            }
+        };
+
+        var trafficShareChart = new ApexCharts(document.querySelector("#trafficShareChart"), trafficShareOptions);
+        trafficShareChart.render();
     }
 
     if (d.getElementById('loadOnClick')) {
@@ -266,10 +339,10 @@ d.addEventListener("DOMContentLoaded", function(event) {
             var button = this;
             var loadContent = d.getElementById('extraContent');
             var allLoaded = d.getElementById('allLoadedText');
-    
+
             button.classList.add('btn-loading');
             button.setAttribute('disabled', 'true');
-    
+
             setTimeout(function () {
                 loadContent.style.display = 'block';
                 button.style.display = 'none';
@@ -285,69 +358,6 @@ d.addEventListener("DOMContentLoaded", function(event) {
 
     if(d.querySelector('.current-year')){
         d.querySelector('.current-year').textContent = new Date().getFullYear();
-    }
-
-    // Glide JS
-
-    if (d.querySelector('.glide')) {
-        new Glide('.glide', {
-            type: 'carousel',
-            startAt: 0,
-            perView: 3
-          }).mount();
-    }
-
-    if (d.querySelector('.glide-testimonials')) {
-        new Glide('.glide-testimonials', {
-            type: 'carousel',
-            startAt: 0,
-            perView: 1,
-            autoplay: 2000
-          }).mount();
-    }
-
-    if (d.querySelector('.glide-clients')) {
-        new Glide('.glide-clients', {
-            type: 'carousel',
-            startAt: 0,
-            perView: 5,
-            autoplay: 2000
-          }).mount();
-    }
-
-    if (d.querySelector('.glide-news-widget')) {
-        new Glide('.glide-news-widget', {
-            type: 'carousel',
-            startAt: 0,
-            perView: 1,
-            autoplay: 2000
-          }).mount();
-    }
-
-    if (d.querySelector('.glide-autoplay')) {
-        new Glide('.glide-autoplay', {
-            type: 'carousel',
-            startAt: 0,
-            perView: 3,
-            autoplay: 2000
-          }).mount();
-    }
-
-    // Pricing countup
-    var billingSwitchEl = d.getElementById('billingSwitch');
-    if(billingSwitchEl) {
-        const countUpStandard = new countUp.CountUp('priceStandard', 99, { startVal: 199 });
-        const countUpPremium = new countUp.CountUp('pricePremium', 199, { startVal: 299 });
-        
-        billingSwitchEl.addEventListener('change', function() {
-            if(billingSwitch.checked) {
-                countUpStandard.start();
-                countUpPremium.start();
-            } else {
-                countUpStandard.reset();
-                countUpPremium.reset();
-            }
-        });
     }
 
 });
