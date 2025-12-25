@@ -18,7 +18,7 @@
     "bootstrap 5 datepicker"
   ],
   "homepage": "https://github.com/viglu/viglu-dashboard",
-  "license": "MIT",
+  "license": "https://github.com/viglu/viglu-dashboard/blob/master/LICENSE.md",
   "bugs": {
     "url": "https://github.com/viglu/viglu-dashboard/issues"
   },
@@ -26,11 +26,13 @@
     "type": "git",
     "url": "https://github.com/viglu/viglu-dashboard"
   },
-  "license": "https://github.com/viglu/viglu-dashboard/blob/master/LICENSE.md",
+  "overrides": {
+    "minimist": "^1.2.8"
+  },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.3",
     "apexcharts": "^5.3.6",
+    "bootstrap": "^5.3.3",
     "notyf": "^3.10.0",
     "nouislider": "^15.8.1",
     "onscreen": "^1.4.0",
@@ -42,16 +44,15 @@
     "waypoints": "^4.0.1"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "browser-sync": "^3.0.3",
-    "del": "^7.1.0",
-    "gulp": "^5.0.0",
-    "gulp-autoprefixer": "^9.0.0",
+    "autoprefixer": "^10.4.23",
+    "browser-sync": "^3.0.4",
+    "del": "^8.0.1",
+    "gulp": "^5.0.1",
+    "gulp-autoprefixer": "^10.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-cssbeautify": "^3.0.1",
     "gulp-file-include": "^2.3.0",
-    "gulp-header": "^2.0.9",
-    "gulp-htmlmin": "^5.0.1",
+    "gulp-html-minifier-terser": "^7.1.0",
     "gulp-npm-dist": "^1.0.3",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^10.0.0",
