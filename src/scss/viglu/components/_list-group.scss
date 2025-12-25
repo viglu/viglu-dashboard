@@ -2,6 +2,8 @@
  * = List groups
  */
 
+@use "sass:math";
+
 // Space list items
 .list-group-space {
     .list-group-item {
@@ -79,7 +81,7 @@
 .news-list{
 	.row{
 		> [class*='col']{
-	  		padding: 0 $spacer/4;
+	  		padding: 0 math.div($spacer, 4);
 		}
 	}
 
