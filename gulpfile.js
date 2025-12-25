@@ -152,23 +152,34 @@ gulp.task('beautify:css', function() {
 
 // Minify CSS
 gulp.task('minify:css', function() {
-    return gulp.src([
-        paths.dev.css + '/viglu.css'
-    ])
+    return gulp.src([paths.src.scss + '/custom/**/*.scss', paths.src.scss + '/viglu/**/*.scss', paths.src.scss + '/viglu.scss'])
+        .pipe(wait(500))
         .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss([autoprefixer({
+            overrideBrowserslist: ['> 1%']
+        })]))
         .pipe(cleanCss())
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(paths.dist.css))
+        .pipe(gulp.dest(paths.dist.css));
 });
 
 // Minify Html
 gulp.task('minify:html', function() {
-    return gulp.src([paths.dev.html + '/**/*.html'])
+    return gulp.src([paths.src.html])
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: './src/partials/',
+            indent: true,
+            context: {
+                environment: 'production'
+            }
+        }))
         .pipe(htmlmin({
             collapseWhitespace: true,
             removeComments: true,
             html5: true,
-            removeEmptyAttributes: true,
+            removeEmptyElements: false,
             removeTagWhitespace: true,
             sortAttributes: true,
             sortClassName: true
@@ -178,12 +189,12 @@ gulp.task('minify:html', function() {
 
 // Clean
 gulp.task('clean:dev', function(done) {
-    del.sync(paths.dev.base);
+    del.deleteSync(paths.dev.base);
     done();
 });
 
 gulp.task('clean:dist', function(done) {
-    del.sync(paths.dist.base);
+    del.deleteSync(paths.dist.base);
     done();
 });
 
